@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Add/Edit Transaction</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <style> /* Flexbox container for sticky footer */ body {display: flex; flex-direction: column; min-height: 100vh;} main {flex: 1;} </style>
+</head>
+<body class="bg-gray-50">
+  <header class="bg-yellow-600 text-white py-4">
+    <nav class="container mx-auto flex justify-between">
+      <h1 class="text-xl font-bold">Library Management System</h1>
+      <ul class="flex space-x-4">
+        <li><a href="/" class="hover:underline">Home</a></li>
+        <li><a href="/books" class="hover:underline">Books</a></li>
+        <li><a href="/members" class="hover:underline">Members</a></li>
+        <li><a href="/staff" class="hover:underline">Staff</a></li>
+        <li><a href="/transactions" class="hover:underline">Transactions</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main class="container mx-auto mt-10">
+    <div class="bg-white shadow-md rounded-lg p-6">
+      <h2 class="text-2xl font-bold mb-6">{{ title }}</h2>
+
+      <form action="{% if form.instance.pk %}{% url 'transaction_update' form.instance.pk %}{% else %}{% url 'transaction_create' %}{% endif %}" method="POST" class="space-y-6">
+        {% csrf_token %}
+        {{ form.as_ul }}        
+
+        <!-- Submit Buttons -->
+        <div class="flex space-x-4">
+          <button type="submit" class="bg-yellow-600 text-white px-4 py-2 rounded hover:bg-yellow-700">Save Transaction</button>
+          <a href="{% url 'transaction_list' %}" class="bg-gray-600 text-white px-4 py-2 rounded hover:bg-gray-700">Cancel</a>
+        </div>
+      </form>
+    </div>
+  </main>
+
+  <footer class="bg-gray-800 text-white py-4 mt-10">
+    <div class="container mx-auto text-center">
+      <p>&copy; 2025 Library Management System. All rights reserved.</p>
+    </div>
+  </footer>
+</body>
+</html>
